@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link,Route} from 'react-router-dom';
+//import { Link,Route} from 'react-router-dom';
 
 
 function SettingScreen(props) {
