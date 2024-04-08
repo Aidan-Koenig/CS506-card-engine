@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link  } from 'react-router-dom';
+//import { Link  } from 'react-router-dom';
 
 /*Set the Username to change when it appears on the screen */
 function ChangeNameScreen(props){
