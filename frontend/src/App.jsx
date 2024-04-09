@@ -66,6 +66,15 @@ function App() {
 
 	/**
 	* @function
+	* @description Returns to Login Screen after deleting account.
+	*/
+	const backToLogin = (value) => {
+		setUsername('');
+		setLoggedIn(false);
+	}
+
+	/**
+	* @function
 	* @description Handles the user login process. It stores the username in the username state variable and sets loggedIn to true to communicate that the user is logged in.
 	* @param {string} username - The username entered by the user.
 	*/
@@ -85,6 +94,8 @@ function App() {
 			.catch(error => {
 				console.error('Error:', error);
 		});
+		/* setUsername(username);
+		setLoggedIn(true); */
 	};
 
 	/**
@@ -144,6 +155,8 @@ function App() {
 					closeCreateGameModal={closeCreateGameModal}
 					createGameModalIsOpen={createGameModalIsOpen}
 					showToast={showToast}
+					username={username}
+					reloadLogin={backToLogin}
 				/>
 			) 
 			: 
