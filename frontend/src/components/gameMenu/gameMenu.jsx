@@ -6,21 +6,39 @@ import settingsSVG from '../../assets/settings.svg';
 import FindGame from '../FindGame/FindGame';
 import CreateGame from '../CreateGame/CreateGame';
 import LobbyScreen from '../LobbyScreen/LobbyScreen';
+import SettingScreen from '../SettingScreen/SettingScreen';
 
-function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username} ) {
+
+function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username, reloadLogin} ) {
 
 	const [gameCreated, setGameCreated] = useState(false);
 	const [lobbyScreenModalIsOpen, setLobbyScreenModalIsOpen] = useState(false);
 
+	const [presentUsername, setPresentUsername] = useState(username)
+	const [settingScreenModalIsOpen, setSettingScreenModalIsOpen] = useState(false);
 
-	// opens lobby screen modal popup
+
 	const openLobbyScreenModal = () => {
 		setLobbyScreenModalIsOpen(true);
 	};
 	
-	// closes lobby screen modal popup
 	const closeLobbyScreenModal = () => {
 		setLobbyScreenModalIsOpen(false);
+	};
+
+	//function to close the settings screen
+	const closeSettingScreenModal = (value) => {
+		setPresentUsername(value);
+		setSettingScreenModalIsOpen(false);
+		if(value == '*GoTo-Login*')
+		{
+			reloadLogin("");
+		}
+	};
+
+	//function to open settings screen when menu screen is reached
+	const openSettingScreenModal = () => {
+		setSettingScreenModalIsOpen(true);
 	};
 
 	return(
@@ -30,7 +48,7 @@ function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						<h2 style={{marginLeft: '1rem'}} className='menu-header'>Menu.</h2>
 						<div>
 							<img src={accountSVG} alt='account'/>
-							<img style={{marginLeft: '1rem', marginRight: '1rem'}} src={settingsSVG} alt='settings'/>
+							<img style={{marginLeft: '1rem', marginRight: '1rem'}} src={settingsSVG} alt='settings' onClick={openSettingScreenModal}/>  
 						</div>
 					</div>
 					<a className='menu-button' style={{marginLeft: '35rem', marginTop: '2rem'}} onClick={openfindGameModal}>
@@ -42,13 +60,13 @@ function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						contentLabel="Registration Modal"
 						style={{
 							overlay: {
-								backgroundColor: 'rgba(0, 0, 0, 0.5)',
+								backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
 							},
 							content: {
 								width: '900px',
 								height: '700px',
 								margin: 'auto',
-								borderRadius: '10px',
+								borderRadius: '10px', // Add this line to round the edges
 							},
 						}}
 					>
@@ -67,13 +85,13 @@ function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						contentLabel="Registration Modal"
 						style={{
 							overlay: {
-								backgroundColor: 'rgba(0, 0, 0, 0.5)',
+								backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
 							},
 							content: {
 								width: '900px',
 								height: '600px',
 								margin: 'auto',
-								borderRadius: '10px',
+								borderRadius: '10px', // Add this line to round the edges
 							},
 						}}
 					>
@@ -104,6 +122,24 @@ function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						}}
 					>
 						<LobbyScreen closeModal={closeLobbyScreenModal} username={username} />
+					</Modal>
+					<Modal
+						isOpen={settingScreenModalIsOpen}
+						onRequestClose={closeSettingScreenModal} // this will go back to the menu screen
+						contentLabel="Setting screen Modal"
+						style={{
+							overlay: {
+							backgroundColor: 'rgba(0, 0, 0, 0.5)',
+							},
+							content: {
+							width: '900px',
+							height: '700px',
+							margin: 'auto',
+							borderRadius: '10px',
+							},
+						}}
+					>
+						<SettingScreen closeModal={closeSettingScreenModal} username={presentUsername} />
 					</Modal>
 				</div>
 			</>
