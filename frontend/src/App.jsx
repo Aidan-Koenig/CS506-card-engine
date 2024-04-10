@@ -66,7 +66,7 @@ function App() {
 
 	/**
 	* @function
-	* @description Handles the user login process. It stores the username in the username state variable and sets loggedIn to true to communicate that the user is logged in.
+	* @description Handles the user login process. It stores the user data in the user state variable and sets loggedIn to true to communicate that the user is logged in.
 	* @param {string} username - The username entered by the user.
 	*/
 	const handleLogin = (username) => {
