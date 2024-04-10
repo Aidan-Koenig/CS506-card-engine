@@ -11,7 +11,7 @@ Modal.setAppElement('#root');
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [username, setUsername] = useState('');
+	const [user, setUser] = useState(null); //user_id, user_name, date_joined within this obj when fetched
 	const [regModalIsOpen, setRegModalIsOpen] = useState(false);
 	const [findGameModalIsOpen, setfindGameModalIsOpen] = useState(false);
 	const [createGameModalIsOpen, setCreateGameModalIsOpen] = useState(false);
@@ -71,11 +71,11 @@ function App() {
 	*/
 	const handleLogin = (username) => {
 		fetch(`http://localhost:8080/login?username=${username}`, {method: 'POST',})
-			.then(response => response.text())
+			.then(response => response.json())
 				.then(data => {
 					console.log(data); // Used in development to debug
-					if (!!data) {
-						setUsername(username);
+					if (data) {
+						setUser(data);
 						setLoggedIn(true);
 					} 
 					else {
@@ -144,6 +144,7 @@ function App() {
 					closeCreateGameModal={closeCreateGameModal}
 					createGameModalIsOpen={createGameModalIsOpen}
 					showToast={showToast}
+					user={user.user_name}
 				/>
 			) 
 			: 
