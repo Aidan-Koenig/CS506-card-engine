@@ -144,7 +144,7 @@ function App() {
 					closeCreateGameModal={closeCreateGameModal}
 					createGameModalIsOpen={createGameModalIsOpen}
 					showToast={showToast}
-					user={user.user_name}
+					username={user.user_name}
 				/>
 			) 
 			: 
