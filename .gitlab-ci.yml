@@ -55,3 +55,15 @@ build-docker-images:
     - docker build ./backend/. -t euchre-backend
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+
+# backend_test:
+#   stage: test
+#   script:
+#     - cd database
+#     - docker compose -f backend_test.yml up -d --build
+#     - sleep 30  # Wait for tests to complete
+#     - docker logs backend_test_backend_1 > logs.txt  # Capture logs from the "backend" service
+#     - grep -q "BUILD SUCCESSFUL" logs.txt  # Check for "BUILD SUCCESSFUL" in logs
+#   after_script:
+#     - cd database
+#     - docker compose -f backend_test.yml down  # Stop and remove containers
