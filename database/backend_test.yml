@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  db2:
+    image: mysql/mysql-server:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lucky_badger
+      MYSQL_DATABASE: full_house_badger
+      MYSQL_ROOT_HOST: '%'
+    volumes:
+      - fullhousedat:/var/lib/mysql
+    ports:
+      - "53306:3306"
+  backend:
+    build:
+      context: ../backend
+      dockerfile: testBackendDockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db2
+    environment:
+      MYSQL_HOST: db2
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: full_house_badger
+      MYSQL_USER: root
+      MYSQL_PASSWORD: lucky_badger
+volumes:
+  fullhousedat:
