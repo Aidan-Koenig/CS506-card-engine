@@ -58,9 +58,12 @@ build-docker-images:
 
 backend_test:
   stage: test
-  image: docker/compose:latest
+  image: tmaier/docker-compose:latest
   services:
     - docker:dind
+  before_script:
+  - docker info
+  - docker-compose --version
   script:
     - cd database
     - docker-compose -f backend_test.yml up -d --build
