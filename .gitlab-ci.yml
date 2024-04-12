@@ -68,7 +68,7 @@ backend_test:
     - cd database
     - docker-compose -f backend_test.yml up -d --build
     - sleep 50  # Wait for tests to complete
-    - docker logs database-backend-1 > logs.txt  # Capture logs from the testing container
+    - docker logs database_backend_1 > logs.txt  # Capture logs from the testing container
     - grep -q "BUILD SUCCESSFUL" logs.txt  # Check for "BUILD SUCCESSFUL" in logs
   after_script:
     - cd database
