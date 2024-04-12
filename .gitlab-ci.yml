@@ -58,7 +58,7 @@ build-docker-images:
 
 backend_test:
   stage: test
-  image: docker:stable
+  image: docker/compose:latest
   services:
     - docker:dind
   script:
