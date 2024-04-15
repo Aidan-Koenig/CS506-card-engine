@@ -6,11 +6,27 @@ import settingsSVG from '../../assets/settings.svg';
 import FindGame from '../FindGame/FindGame';
 import CreateGame from '../CreateGame/CreateGame';
 import LobbyScreen from '../LobbyScreen/LobbyScreen';
+import SelectSeat from '../SelectSeat/SelectSeat';
 
 function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username} ) {
 
 	const [gameCreated, setGameCreated] = useState(false);
 	const [lobbyScreenModalIsOpen, setLobbyScreenModalIsOpen] = useState(false);
+	const [showSelectSeatModal, setShowSelectSeatModal] = useState(false);
+	const [selectedGameId, setSelectedGameId] = useState(null);
+
+	const openSelectSeatModal = (gameId) => {
+		closefindGameModal();
+		console.log("GameID:" + gameId);
+		setSelectedGameId(gameId);
+		console.log("Selected game ID: " + selectedGameId);
+		setShowSelectSeatModal(true);
+	};
+
+	const closeSelectSeatModal = () => {
+		setShowSelectSeatModal(false);
+		setSelectedGameId(null);
+	};
 
 	// opens lobby screen modal popup
 	const openLobbyScreenModal = () => {
@@ -54,6 +70,7 @@ function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						<FindGame
 							showToast={showToast}
 							closeModal={closefindGameModal}
+							openSelectSeatModal={openSelectSeatModal}
 						/>
 					</Modal>
 					<p style={{textAlign: 'center'}}>-or-</p>
@@ -103,6 +120,22 @@ function gameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						}}
 					>
 						<LobbyScreen closeModal={closeLobbyScreenModal} username={username} />
+					</Modal>
+					<Modal
+						isOpen={showSelectSeatModal}
+						onRequestClose={closeSelectSeatModal}
+						contentLabel="SelectSeat Modal"
+						style={{
+							overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+							content: { width: '900px', height: '700px', margin: 'auto', borderRadius: '10px' },
+						}}
+						>
+						<SelectSeat
+							showToast={showToast}
+							selectedGameId={selectedGameId}
+							closeModal={closeSelectSeatModal}
+							openGameInfoModal={openSelectSeatModal}
+						/>
 					</Modal>
 				</div>
 			</>
