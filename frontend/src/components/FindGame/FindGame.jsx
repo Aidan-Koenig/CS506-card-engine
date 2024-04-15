@@ -4,7 +4,7 @@ import closeModalBtn from '../../assets/close.svg';
 
 function FindGame({ closeModal }) {
 
-	const [openGames, setOpenGames] = useState({});
+	const [openGames, setOpenGames] = useState({}); // game_name above in obj hierarchy, game_id, number_players
 
 	// Runs on component load
 	// Fetches all open games from the backend/db
