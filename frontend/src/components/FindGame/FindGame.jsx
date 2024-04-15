@@ -74,6 +74,7 @@ function FindGame({ closeModal }) {
 							{gameData.number_players}/4
 							</p>
 							<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>&gt;</p>
+							{/* convert above P into a button that on click, opens the modal for select-seat and runs a fetch on the gameInfo to get the specific game information */}
 						</div>
 					))}
 				</div>
