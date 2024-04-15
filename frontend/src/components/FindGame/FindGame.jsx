@@ -17,6 +17,7 @@ function FindGame({ closeModal }) {
 				}
 				const data = await response.json();
 				console.log(data);
+				console.log(data);
 				setOpenGames(data);
 			} catch (error) {
 				console.error('Error fetching open games:', error);
@@ -66,16 +67,16 @@ function FindGame({ closeModal }) {
 						<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}></p>
 					</div>
 					{Object.entries(openGames).map(([gameName, gameData]) => (
-						<div key={gameName}>
-							<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block', marginLeft: '0.5rem'}}>
-							{gameName} : ID {gameData.game_id}
-							</p>
-							<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>
-							{gameData.number_players}/4
-							</p>
-							<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>&gt;</p>
+							<div key={gameName}>
+								<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block', marginLeft: '0.5rem'}}>
+								{gameName} 
+								</p>
+								<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>
+								{gameData.number_players}/4
+								</p>
+								<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>&gt;</p>
 							{/* convert above P into a button that on click, opens the modal for select-seat and runs a fetch on the gameInfo to get the specific game information */}
-						</div>
+							</div>
 					))}
 				</div>
 			</div>
