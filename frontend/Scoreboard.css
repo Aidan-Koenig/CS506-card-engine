@@ -1,0 +1,42 @@
+.Scoreboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  grid-area: scoreboard;
+  width: 100%; 
+  box-sizing: border-box;
+  position: relative; 
+}
+
+.scores-container {
+  width: 100%; 
+}
+
+.team-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; 
+}
+
+.team-name, .score {
+  margin: 0 15px; 
+}
+
+
+.score {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.scoreboard-image-container {
+  position: absolute;
+  bottom: 10px; 
+  right: 10px; 
+}
