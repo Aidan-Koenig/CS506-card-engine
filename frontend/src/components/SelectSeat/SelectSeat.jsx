@@ -1,30 +1,39 @@
 import closeModalBtn from '../../assets/close.svg';
 import { useEffect, useState } from 'react';
 
-function SelectSeat({ gameId }) {
+function SelectSeat({ closeModal, selectedGameId }) {
 
 	const [gameInfo, setGameInfo] = useState(null);
 
 	useEffect(() => {
 		const fetchGameInfo = async () => {
 			try {
-				const response = await fetch(`http://localhost:8080/games/euchre/${gameId}`);
+				const response = await fetch(`http://localhost:8080/games/euchre/${selectedGameId}`);
 				if (!response.ok) {
 					throw new Error('Failed to fetch game info');
 			}
 			const data = await response.json();
 			setGameInfo(data);
+			console.log(data);
 			} catch (error) {
 				console.error('Error fetching game info:', error);
 			}
 		};
 	
 		fetchGameInfo();
-	}, [gameId]);
+	}, [selectedGameId]);
+
+	if (!gameInfo) {
+		return <div>Loading...</div>; // loading indicator while it's waiting for the game info
+	}
 
 	return(
 		<>
-			<div>
+			<div className='lobby'>
+				<div className='upper-bar'>
+					<h2 className='menu-header'>Select Seat.</h2>
+					<img className='closeModalX' src={closeModalBtn} onClick={closeModal} alt='close'/>
+				</div>
 				<h2>{gameInfo.game_name}</h2>
 				<p>Game ID: {gameInfo.game_id}</p>
 				<p>Player 1: {gameInfo.player1_name}</p>
