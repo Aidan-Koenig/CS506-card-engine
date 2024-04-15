@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FindGame.css';
 import closeModalBtn from '../../assets/close.svg';
 
-function FindGame({ closeModal }) {
+function FindGame({ closeModal, openSelectSeatModal }) {
 
 	const [openGames, setOpenGames] = useState({}); // game_name above in obj hierarchy, game_id, number_players
 
@@ -16,7 +16,6 @@ function FindGame({ closeModal }) {
 					throw new Error('Failed to fetch open games');
 				}
 				const data = await response.json();
-				console.log(data);
 				console.log(data);
 				setOpenGames(data);
 			} catch (error) {
@@ -69,13 +68,17 @@ function FindGame({ closeModal }) {
 					{Object.entries(openGames).map(([gameName, gameData]) => (
 							<div key={gameName}>
 								<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block', marginLeft: '0.5rem'}}>
-								{gameName} 
+								{gameName} : ID {gameData.game_id}
 								</p>
 								<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>
 								{gameData.number_players}/4
 								</p>
-								<p style={{fontWeight: 'bold', width: '33%', display: 'inline-block'}}>&gt;</p>
-							{/* convert above P into a button that on click, opens the modal for select-seat and runs a fetch on the gameInfo to get the specific game information */}
+								<button
+									style={{ fontWeight: 'bold', width: '33%', display: 'inline-block' }}
+									onClick={() => openSelectSeatModal(gameData.game_id)}
+								>
+									&gt;
+								</button>
 							</div>
 					))}
 				</div>
