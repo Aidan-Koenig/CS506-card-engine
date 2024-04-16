@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import FindGame from './FindGame';
 
 describe('FindGame', () => { 
@@ -12,5 +12,6 @@ describe('FindGame', () => {
 	it('should have the close svg', () => {
 		render(<FindGame />);
 		const closeSVG = screen.getByAltText('close');
+		expect(closeSVG).toBeInTheDocument();
 	});
 });
