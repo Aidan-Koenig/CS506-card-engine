@@ -5,6 +5,7 @@ function SelectSeat({ closeModal, selectedGameId }) {
 
 	const [gameInfo, setGameInfo] = useState(null);
 
+	// Grabs the latest game info for a game with the specified selectedGameId
 	useEffect(() => {
 		const fetchGameInfo = async () => {
 			try {
@@ -23,8 +24,13 @@ function SelectSeat({ closeModal, selectedGameId }) {
 		fetchGameInfo();
 	}, [selectedGameId]);
 
+	/* 
+		Need to add fetch here to allow user to select their seat at the table
+	*/
+
+	// Loading indicator while it's waiting for the game info
 	if (!gameInfo) {
-		return <div>Loading...</div>; // loading indicator while it's waiting for the game info
+		return <div>Loading...</div>;
 	}
 
 	return(
