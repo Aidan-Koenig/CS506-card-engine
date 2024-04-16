@@ -20,7 +20,7 @@ services:
     depends_on:
       - db2
     environment:
-      MYSQL_HOST: db2
+      MYSQL_HOST: database-db2-1
       MYSQL_PORT: 3306
       MYSQL_DATABASE: full_house_badger
       MYSQL_USER: root
