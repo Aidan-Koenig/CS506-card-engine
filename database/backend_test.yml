@@ -20,6 +20,7 @@ services:
     depends_on:
       - db2
     environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database-db2-1:3306/full_house_badger
       MYSQL_HOST: database-db2-1
       MYSQL_PORT: 3306
       MYSQL_DATABASE: full_house_badger
