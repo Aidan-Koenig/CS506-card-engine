@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . /app
 EXPOSE 8080
 
-CMD ["sh", "-c", "./gradlew test --debug && tail -f /dev/null"]
+CMD ["sh", "-c", "./gradlew test && tail -f /dev/null"]
