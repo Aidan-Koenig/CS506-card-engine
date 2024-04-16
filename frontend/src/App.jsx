@@ -98,7 +98,6 @@ function App() {
 				.then(data => {
 					console.log(data); // Used in development to debug
 					if (data === 'User successfully registered') {
-						setUsername(username);
 						showToast(`Successfully registered ${username}`, 'success');
 						closeRegModal();
 						} 
