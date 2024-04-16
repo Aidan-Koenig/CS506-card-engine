@@ -5,6 +5,11 @@ import './LobbyScreen.css';
 
 function LobbyScreen({ closeModal, username }) {
 
+	/*
+		Once endpoint is updated to put game creator into the first seat, have this run a use effect to get
+		the game-info and get use that for the player names
+	*/
+
 	// We'll need a useEffect on component load to check for whos in the game currently, then use websockets for them to communicate with one another
 	// RN just using dummy data for people name
 	const playerNames = ['Player2 (bot)', 'Player3 (bot)', 'Player4 (bot)'];
