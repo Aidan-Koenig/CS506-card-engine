@@ -26,31 +26,6 @@ function FindGame({ closeModal, openSelectSeatModal }) {
 		fetchOpenGames();
 	}, []);
 
-	// request that gets called to have a user join a game 
-	// TODO: Have this fetch moved to the modal, have the modal popup when they select the game
-	// using the data from the getGameInfo endpoint using the game ID in the openGames object
-	// const joinGame = async (gameId, playerId, seatNumber) => {
-	// 	try {
-	// 		const response = await fetch(`http://localhost:8080/games/euchre/${gameId}/select-seat`, {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 		},
-	// 		body: JSON.stringify({ playerID: playerId, seatNumber }),
-	// 		});
-		
-	// 		if (!response.ok) {
-	// 		throw new Error('Failed to join game');
-	// 		}
-		
-	// 		const data = await response.text();
-	// 		console.log(data); // Log the response message
-	// 		// Optionally, you can perform additional actions after joining the game
-	// 	} catch (error) {
-	// 		console.error('Error joining game:', error);
-	// 	}
-	// };
-
 	return (
 		<>
 			<div className='find-game'>
@@ -74,7 +49,7 @@ function FindGame({ closeModal, openSelectSeatModal }) {
 								{gameData.number_players}/4
 								</p>
 								<button
-									style={{ fontWeight: 'bold', width: '33%', display: 'inline-block' }}
+									style={{ fontWeight: 'bold', width: '33%', display: 'inline-block', background: 'none', border: 'none' }}
 									onClick={() => openSelectSeatModal(gameData.game_id)}
 								>
 									&gt;
