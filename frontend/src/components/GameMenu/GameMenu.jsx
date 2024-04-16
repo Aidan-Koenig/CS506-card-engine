@@ -10,7 +10,6 @@ import SelectSeat from '../SelectSeat/SelectSeat';
 
 function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username} ) {
 
-	const [gameCreated, setGameCreated] = useState(false);
 	const [lobbyScreenModalIsOpen, setLobbyScreenModalIsOpen] = useState(false);
 	const [showSelectSeatModal, setShowSelectSeatModal] = useState(false);
 	const [selectedGameId, setSelectedGameId] = useState(null);
@@ -96,10 +95,6 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 						<CreateGame
 							showToast={showToast}
 							closeModal={closeCreateGameModal}
-							setGameCreated={() => {
-								setGameCreated(true);
-								openLobbyScreenModal(); // Open the lobby screen modal when game is created
-							}}
 							openLobbyScreenModal={openLobbyScreenModal}
 						/>
 					</Modal>

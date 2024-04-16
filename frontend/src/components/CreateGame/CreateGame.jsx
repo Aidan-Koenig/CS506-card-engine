@@ -4,7 +4,7 @@ import closeModalBtn from '../../assets/close.svg';
 import arrowSVG from '../../assets/return-arrow.svg';
 import notifSVG from '../../assets/notif-icon.svg';
 
-function CreateGame({ closeModal, setGameCreated, openLobbyScreenModal, showToast }) {
+function CreateGame({ closeModal, openLobbyScreenModal, showToast }) {
 
 	const [gameName, setGameName] = useState('');
 	const [isPrivate, setIsPrivate] = useState(false);
@@ -41,7 +41,6 @@ function CreateGame({ closeModal, setGameCreated, openLobbyScreenModal, showToas
 			.catch(error => {
 				console.error('Error:', error);
 			});
-			setGameCreated(true);
 			closeModal();
 			openLobbyScreenModal();
 		}
