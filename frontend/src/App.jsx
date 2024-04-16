@@ -3,7 +3,7 @@ import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
-import GameMenu from './components/gameMenu/gameMenu';
+import GameMenu from './components/GameMenu/GameMenu';
 import {ToastContainer, toast} from 'react-toastify';
 import Modal from 'react-modal';
 
