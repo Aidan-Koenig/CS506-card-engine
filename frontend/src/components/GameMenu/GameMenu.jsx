@@ -7,7 +7,7 @@ import CreateGame from '../CreateGame/CreateGame';
 import LobbyScreen from '../LobbyScreen/LobbyScreen';
 import SelectSeat from '../SelectSeat/SelectSeat';
 
-function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username, userID} ) {
+function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, userID} ) {
 
 	const [lobbyScreenModalIsOpen, setLobbyScreenModalIsOpen] = useState(false);
 	const [showSelectSeatModal, setShowSelectSeatModal] = useState(false);
