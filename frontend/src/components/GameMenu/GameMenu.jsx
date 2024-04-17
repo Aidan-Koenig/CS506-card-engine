@@ -96,6 +96,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							closeModal={closeCreateGameModal}
 							openLobbyScreenModal={openLobbyScreenModal}
 							userID={userID}
+							setSelectedGameId={setSelectedGameId}
 						/>
 					</Modal>
 					<Modal
@@ -114,7 +115,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							},
 						}}
 					>
-						<LobbyScreen closeModal={closeLobbyScreenModal} username={username} />
+						{selectedGameId !== null && <LobbyScreen closeModal={closeLobbyScreenModal} selectedGameId={selectedGameId} />}
 					</Modal>
 					<Modal
 						isOpen={showSelectSeatModal}
