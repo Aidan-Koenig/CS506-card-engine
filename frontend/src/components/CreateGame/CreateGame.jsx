@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './CreateGame.css';
 import closeModalBtn from '../../assets/close.svg';
 import arrowSVG from '../../assets/return-arrow.svg';
