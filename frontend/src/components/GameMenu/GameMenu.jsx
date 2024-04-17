@@ -23,7 +23,6 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 
 	const closeSelectSeatModal = () => {
 		setShowSelectSeatModal(false);
-		setSelectedGameId(null);
 	};
 
 	// opens lobby screen modal popup
@@ -131,6 +130,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							selectedGameId={selectedGameId}
 							closeModal={closeSelectSeatModal}
 							openLobbyScreenModal={openLobbyScreenModal}
+							userID={userID}
 						/>
 					</Modal>
 				</div>
