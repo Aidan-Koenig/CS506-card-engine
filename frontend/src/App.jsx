@@ -142,6 +142,24 @@ function App() {
 		toast[type](message);
 	}
 
+	/**
+	* Renders the main application UI based on the user's login status.
+	* 
+	* @prop {boolean} loggedIn - Indicates if the user is logged in.
+	* @prop {function} openfindGameModal - Function to open the "Find Game" modal.
+	* @prop {function} closefindGameModal - Function to close the "Find Game" modal.
+	* @prop {boolean} findGameModalIsOpen - Flag indicating if the "Find Game" modal is open.
+	* @prop {function} openCreateGameModal - Function to open the "Create Game" modal.
+	* @prop {function} closeCreateGameModal - Function to close the "Create Game" modal.
+	* @prop {boolean} createGameModalIsOpen - Flag indicating if the "Create Game" modal is open.
+	* @prop {function} showToast - Function to display a toast notification.
+	* @prop {object} user - User object containing username and user ID (assumed).
+	* @prop {function} handleLogin - Function to handle user login.
+	* @prop {function} openRegModal - Function to open the registration modal.
+	* @prop {boolean} regModalIsOpen - Flag indicating if the registration modal is open.
+	* @prop {function} handleRegister - Function to handle user registration.
+	* @prop {function} closeRegModal - Function to close the registration modal.
+	*/
 	return (
 		<>
 		<ToastContainer 
