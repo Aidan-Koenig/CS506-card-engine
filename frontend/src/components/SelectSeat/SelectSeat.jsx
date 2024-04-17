@@ -1,7 +1,7 @@
 import closeModalBtn from '../../assets/close.svg';
 import { useEffect, useState } from 'react';
 
-function SelectSeat({ closeModal, selectedGameId }) {
+function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModal }) {
 
 	const [gameInfo, setGameInfo] = useState(null);
 
@@ -24,8 +24,33 @@ function SelectSeat({ closeModal, selectedGameId }) {
 		fetchGameInfo();
 	}, [selectedGameId]);
 
-	/* 
-		Need to add fetch here to allow user to select their seat at the table
+	/* request that gets called to have a user join a game 
+	 const joinGame = async (gameId, playerId, seatNumber) => {
+	 	try {
+	 		const response = await fetch(`http://localhost:8080/games/euchre/${selectedGameId}/select-seat`, {
+	 		method: 'POST',
+	 		headers: {
+	 			'Content-Type': 'application/json',
+	 		},
+	 		body: JSON.stringify({ playerID: playerId, seatNumber }),
+	 		});
+		
+	 		if (!response.ok) {
+	 		throw new Error('Failed to join game');
+	 		}
+			else { //Successfully selected seat, close this modal and open the lobby modal
+				showToast('Successfully joined game', 'success');
+				closeModal();
+				openLobbyScreenModal();
+			}
+		
+	 		const data = await response.text();
+	 		console.log(data); // Log the response message
+	 		// Optionally, you can perform additional actions after joining the game
+	 	} catch (error) {
+	 		console.error('Error joining game:', error);
+	 	}
+	 };
 	*/
 
 	// Loading indicator while it's waiting for the game info
@@ -40,15 +65,21 @@ function SelectSeat({ closeModal, selectedGameId }) {
 					<h2 className='menu-header'>Select Seat.</h2>
 					<img className='closeModalX' src={closeModalBtn} onClick={closeModal} alt='close'/>
 				</div>
-				<h2>{gameInfo.game_name}</h2>
-				<p>Game ID: {gameInfo.game_id}</p>
-				<p>Player 1: {gameInfo.player1_name}</p>
-				<p>Player 2: {gameInfo.player2_name}</p>
-				<p>Player 3: {gameInfo.player3_name}</p>
-				<p>Player 4: {gameInfo.player4_name}</p>
-				<p>Game Status: {gameInfo.game_status}</p>
-				<p>Winner 1: {gameInfo.winner_1}</p>
-				<p>Winner 2: {gameInfo.winner_2}</p>
+				<h2>Name: {gameInfo.game_name}, ID: {gameInfo.game_id}</h2>
+				<div>
+					{[1, 2, 3, 4].map((seatNumber) => (
+					<div key={seatNumber}>
+						{!gameInfo[`player${seatNumber}_name`] && ( // If nobody in the given seat, then display the button
+						<button
+							onClick={() => handleSeatSelection(seatNumber)}
+						>
+							Select Seat {seatNumber}
+						</button>
+						)}
+						<p>Player {seatNumber}: {gameInfo[`player${seatNumber}_name`]}</p>
+					</div>
+					))}
+				</div>
 				<p>Creation Date: {gameInfo.creation_date}</p>
 			</div>
 		</>
