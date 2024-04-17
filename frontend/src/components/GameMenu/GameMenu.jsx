@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import Modal from 'react-modal';
 import accountSVG from '../../assets/account.svg'
@@ -8,7 +7,7 @@ import CreateGame from '../CreateGame/CreateGame';
 import LobbyScreen from '../LobbyScreen/LobbyScreen';
 import SelectSeat from '../SelectSeat/SelectSeat';
 
-function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username} ) {
+function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, username, userID} ) {
 
 	const [lobbyScreenModalIsOpen, setLobbyScreenModalIsOpen] = useState(false);
 	const [showSelectSeatModal, setShowSelectSeatModal] = useState(false);
@@ -96,6 +95,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							showToast={showToast}
 							closeModal={closeCreateGameModal}
 							openLobbyScreenModal={openLobbyScreenModal}
+							userID={userID}
 						/>
 					</Modal>
 					<Modal
@@ -129,7 +129,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							showToast={showToast}
 							selectedGameId={selectedGameId}
 							closeModal={closeSelectSeatModal}
-							openGameInfoModal={openSelectSeatModal}
+							openLobbyScreenModal={openLobbyScreenModal}
 						/>
 					</Modal>
 				</div>
