@@ -7,10 +7,6 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 
 	const [gameInfo, setGameInfo] = useState(null);
 
-	/*
-		Once endpoint is updated to put game creator into the first seat, have this run a use effect to get
-		the game-info and get use that for the player names
-	*/
 	useEffect(() => {
 		const fetchGameInfo = async () => {
 			try {
@@ -27,10 +23,8 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 		};
 	
 		fetchGameInfo();
-	}, []);
+	}, []); // need to add a dependency so that this refreshes the list whenever someone joins a game, probably through websockets
 
-	// We'll need a useEffect on component load to check for whos in the game currently, then use websockets for them to communicate with one another
-	// RN just using dummy data for people name
 	const playerNames = gameInfo ? [gameInfo.player1_name] : [];
 
 	// Loading indicator while it's waiting for the game info
