@@ -4,7 +4,7 @@ import closeModalBtn from '../../assets/close.svg';
 import arrowSVG from '../../assets/return-arrow.svg';
 import notifSVG from '../../assets/notif-icon.svg';
 
-function CreateGame({ closeModal, openLobbyScreenModal, showToast }) {
+function CreateGame({ closeModal, openLobbyScreenModal, showToast, userID }) {
 
 	const [gameName, setGameName] = useState('');
 	const [isPrivate, setIsPrivate] = useState(false);
@@ -27,7 +27,7 @@ function CreateGame({ closeModal, openLobbyScreenModal, showToast }) {
 
 		else {
 			// send newly created game to the backend using gameName
-			fetch(`http://localhost:8080/games/euchre/create-game?gameName=${gameName}`, {method: 'POST',})
+			fetch(`http://localhost:8080/games/euchre/create-game?playerID=${userID}&gameName=${gameName}`, {method: 'POST',})
 			.then(response => response.text())
 				.then(data => {
 					console.log(data); // Used in development to debug
