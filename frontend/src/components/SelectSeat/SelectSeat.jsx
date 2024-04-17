@@ -1,7 +1,7 @@
 import closeModalBtn from '../../assets/close.svg';
 import { useEffect, useState } from 'react';
 
-function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModal }) {
+function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModal, userID }) {
 
 	const [gameInfo, setGameInfo] = useState(null);
 
@@ -24,34 +24,29 @@ function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModa
 		fetchGameInfo();
 	}, []);
 
-	/* request that gets called to have a user join a game 
-	 const joinGame = async (gameId, playerId, seatNumber) => {
-	 	try {
-	 		const response = await fetch(`http://localhost:8080/games/euchre/${selectedGameId}/select-seat`, {
-	 		method: 'POST',
-	 		headers: {
-	 			'Content-Type': 'application/json',
-	 		},
-	 		body: JSON.stringify({ playerID: playerId, seatNumber }),
-	 		});
+	//request that gets called to have a user join a game 
+	const joinGame = async (seatNumber) => {
+		try {
+			const response = await fetch(`http://localhost:8080/games/euchre/${selectedGameId}/select-seat?playerID=${userID}&seatNumber=${seatNumber}`, {
+			method: 'POST',
+			});
 		
-	 		if (!response.ok) {
-	 		throw new Error('Failed to join game');
-	 		}
+			if (!response.ok) {
+			throw new Error('Failed to join game');
+			}
 			else { //Successfully selected seat, close this modal and open the lobby modal
 				showToast('Successfully joined game', 'success');
 				closeModal();
 				openLobbyScreenModal();
 			}
 		
-	 		const data = await response.text();
-	 		console.log(data); // Log the response message
-	 		// Optionally, you can perform additional actions after joining the game
-	 	} catch (error) {
-	 		console.error('Error joining game:', error);
-	 	}
-	 };
-	*/
+			const data = await response.text();
+			console.log(data); // Log the response message
+			// Optionally, you can perform additional actions after joining the game
+		} catch (error) {
+			console.error('Error joining game:', error);
+		}
+	};
 
 	// Loading indicator while it's waiting for the game info
 	if (!gameInfo) {
@@ -69,9 +64,9 @@ function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModa
 				<div>
 					{[1, 2, 3, 4].map((seatNumber) => (
 					<div key={seatNumber}>
-						{!gameInfo[`player${seatNumber}_name`] && ( // If nobody in the given seat, then display the button
+						{!gameInfo[`player${seatNumber}_name`] && ( // If nobody in the given seat, then display the button for that seat
 						<button
-							onClick={() => handleSeatSelection(seatNumber)}
+							onClick={() => joinGame(seatNumber)}
 						>
 							Select Seat {seatNumber}
 						</button>
