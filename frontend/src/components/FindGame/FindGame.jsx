@@ -26,6 +26,14 @@ function FindGame({ closeModal, openSelectSeatModal }) {
 		fetchOpenGames();
 	}, []);
 
+	/**
+	* Renders the UI for finding available games.
+	* 
+	* @prop {object} openGames - Object containing information about open games. Keys are game names, values are game data objects.
+	* @prop {function} closeModal - Function to close the "Find Game" modal.
+	* @prop {string} closeModalBtn - The image source for the close button.
+	* @prop {function} openSelectSeatModal - Function to open the "Select Seat" modal for a specific game.
+	*/
 	return (
 		<>
 			<div className='find-game'>
