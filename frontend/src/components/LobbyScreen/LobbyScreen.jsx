@@ -23,7 +23,7 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 		};
 	
 		fetchGameInfo();
-	}, []); // need to add a dependency so that this refreshes the list whenever someone joins a game, probably through websockets
+	}, [selectedGameId]); // need to add a dependency so that this refreshes the list whenever someone joins a game, probably through websockets
 
 	const playerNames = gameInfo ? [gameInfo.player1_name] : [];
 

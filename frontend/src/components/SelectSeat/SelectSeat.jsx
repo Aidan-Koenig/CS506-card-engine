@@ -22,7 +22,7 @@ function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModa
 		};
 	
 		fetchGameInfo();
-	}, []);
+	}, [selectedGameId]);
 
 	//request that gets called to have a user join a game 
 	const joinGame = async (seatNumber) => {
