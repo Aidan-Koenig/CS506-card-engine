@@ -144,6 +144,7 @@ function App() {
 					createGameModalIsOpen={createGameModalIsOpen}
 					showToast={showToast}
 					username={user.user_name}
+					userID={user.user_id}
 				/>
 			) 
 			: 
