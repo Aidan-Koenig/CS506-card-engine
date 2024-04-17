@@ -53,6 +53,18 @@ function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModa
 		return <div>Loading...</div>;
 	}
 
+	// Renders the seat number and player name for a given seat, also a button to select the seat if someone not there
+	const renderSeat = (seatNumber) => (
+		<div key={seatNumber}>
+			{!gameInfo[`player${seatNumber}_name`] && (
+				<button onClick={() => joinGame(seatNumber)}>
+				Select Seat {seatNumber}
+				</button>
+			)}
+			<p>Player {seatNumber}: {gameInfo[`player${seatNumber}_name`]}</p>
+		</div>
+	);
+
 	return(
 		<>
 			<div className='lobby'>
@@ -62,18 +74,20 @@ function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModa
 				</div>
 				<h2>Name: {gameInfo.game_name}, ID: {gameInfo.game_id}</h2>
 				<div>
-					{[1, 2, 3, 4].map((seatNumber) => (
-					<div key={seatNumber}>
-						{!gameInfo[`player${seatNumber}_name`] && ( // If nobody in the given seat, then display the button for that seat
-						<button
-							onClick={() => joinGame(seatNumber)}
-						>
-							Select Seat {seatNumber}
-						</button>
-						)}
-						<p>Player {seatNumber}: {gameInfo[`player${seatNumber}_name`]}</p>
+					<div style={{display: 'flex', justifyContent: 'center'}}>
+						{renderSeat(1)}
 					</div>
-					))}
+					<div style={{display: 'flex', justifyContent: 'space-between'}}>
+						<div>
+							{renderSeat(4)}
+						</div>
+						<div>
+							{renderSeat(2)}
+						</div>
+					</div>
+					<div style={{display: 'flex', justifyContent: 'center'}}>
+						{renderSeat(3)}
+					</div>
 				</div>
 				<p>Creation Date: {gameInfo.creation_date}</p>
 			</div>
