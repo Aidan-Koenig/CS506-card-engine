@@ -17,16 +17,30 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 			const data = await response.json();
 			setGameInfo(data);
 			console.log(data);
+			// TODO: need to subscribe to websocket here
 			} catch (error) {
 				console.error('Error fetching game info:', error);
 			}
 		};
 	
 		fetchGameInfo();
-	}, [selectedGameId]); // need to add a dependency so that this refreshes the list whenever someone joins a game, probably through websockets
+	}, [selectedGameId]);
 
-	const playerNames = gameInfo ? [gameInfo.player1_name] : [];
+	// TODO: need another use effect for the websockets
 
+	// had to do this monstrosity to render only names that are in the game
+	const playerNames = (gameInfo?.player1_name?.trim() ||
+		gameInfo?.player2_name?.trim() ||
+		gameInfo?.player3_name?.trim() ||
+		gameInfo?.player4_name?.trim())
+		? [
+			gameInfo.player1_name,
+			gameInfo.player2_name,
+			gameInfo.player3_name,
+			gameInfo.player4_name,
+			].filter(name => name?.trim())
+		: [];
+	
 	// Loading indicator while it's waiting for the game info
 	if (!gameInfo) {
 		return <div>Loading...</div>;
@@ -54,7 +68,8 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 						<img src={notifSVG} />
 						Your game will start filled with bots.
 					</div>
-					<button>Start game &gt;</button>
+					<button>Start game &gt;</button> 
+					{/* whenver all ready from websocket start game, voteToStart, voteNotToStartGame */}
 				</div>
 			</div>
 		</>
