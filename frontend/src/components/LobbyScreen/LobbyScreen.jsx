@@ -1,11 +1,35 @@
 import { useEffect, useState } from 'react';
 import closeModalBtn from '../../assets/close.svg';
 import notifSVG from '../../assets/notif-icon.svg';
+// import { Client } from '@stomp/stompjs'; TODO: Uncomment when this is being implemented for websockets
 import './LobbyScreen.css';
 
 function LobbyScreen({ closeModal, selectedGameId }) {
 
+	/*
+	const stompClient = new Client({
+		brokerURL: 'ws://localhost:8080/full-house-bucky-websocket'
+	});
+	*/
+
+	/**
+	 * @function
+	 * @description Handles subscribing to a Euchre games websocket when joining a lobby
+	 * @param {int} gameID - The ID of the game to join
+	const handleSubscribeLobby = (gameID) => {
+		stompClient.subscribe('/topic/games/euchre/' + gameID, (message) => {
+			handleGameStatus(JSON.parse(message.body).content);
+		});
+	}
+
+	function handleGameStatus(message){
+		console.log(message)
+	}
+	*/
+
 	const [gameInfo, setGameInfo] = useState(null);
+	// const [playerReadyStatus, setPlayerReadyStatus] = useState({});
+	// const [webSocketMessage, setWebSocketMessage] = useState(null);
 
 	useEffect(() => {
 		const fetchGameInfo = async () => {
@@ -25,6 +49,19 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 	
 		fetchGameInfo();
 	}, [selectedGameId]);
+
+	// useEffect(() => {
+	// 	if (webSocketMessage) {
+	// 		setGameInfo(webSocketMessage);
+	// 		setPlayerNames([webSocketMessage.player1_name, webSocketMessage.player2_name, webSocketMessage.player3_name, webSocketMessage.player4_name].filter(Boolean));
+	// 		setPlayerReadyStatus({
+	// 			1: webSocketMessage.player1_ready,
+	// 			2: webSocketMessage.player2_ready,
+	// 			3: webSocketMessage.player3_ready,
+	// 			4: webSocketMessage.player4_ready,
+	// 		});
+	// 	}
+	// }, [webSocketMessage]);
 
 	// TODO: need another use effect for the websockets
 
