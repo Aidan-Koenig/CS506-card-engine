@@ -30,7 +30,7 @@ describe('SelectSeat', () => {
 			creation_date: '2023-05-01T00:00:00Z',
 		};
 
-		vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+		vi.spyOn(window, 'fetch').mockResolvedValueOnce({
 			ok: true,
 			json: vi.fn().mockResolvedValueOnce(gameInfo),
 		});
@@ -51,7 +51,7 @@ describe('SelectSeat', () => {
 			creation_date: '2023-05-01T00:00:00Z',
 		};
 
-		vi.spyOn(global, 'fetch').mockResolvedValueOnce({
+		vi.spyOn(window, 'fetch').mockResolvedValueOnce({
 			ok: true,
 			json: vi.fn().mockResolvedValueOnce(gameInfo),
 		});
