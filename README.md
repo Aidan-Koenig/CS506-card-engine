@@ -36,6 +36,13 @@ npm install
 npm run dev
 ```
 
+## How to run the frontend linter
+
+```bash
+cd ./frontend
+npm run lint
+```
+
 ## How to Use The Backend Locally without the Compose
 
 ```bash
