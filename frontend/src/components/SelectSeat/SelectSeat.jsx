@@ -65,6 +65,17 @@ function SelectSeat({ showToast, closeModal, selectedGameId, openLobbyScreenModa
 		</div>
 	);
 
+	/**
+	* SelectSeatModal component renders the UI for selecting a seat in a game lobby.
+	* 
+	* @prop {object} gameInfo - An object containing information about the game.
+	*   @prop {string} gameInfo.game_name - The name of the game.
+	*   @prop {number} gameInfo.game_id - The ID of the game.
+	*   @prop {string} gameInfo.creation_date - The date and time the game was created.
+	* @prop {function} closeModal - A function to close the "Select Seat" modal.
+	* @prop {string} closeModalBtn - The image source for the close button.
+	* @prop {function} renderSeat - A function that renders the UI for a single seat. This function is expected to take a seat number as an argument.
+	*/
 	return(
 		<>
 			<div className='lobby'>
