@@ -6,7 +6,7 @@ import Registration from './components/Registration/Registration';
 import GameMenu from './components/GameMenu/GameMenu';
 import {ToastContainer, toast} from 'react-toastify';
 import Modal from 'react-modal';
-import { Client } from '@stomp/stompjs';
+// import { Client } from '@stomp/stompjs'; TODO: Uncomment when this is being implemented for websockets
 Modal.setAppElement('#root');
 
 function App() {
@@ -15,9 +15,11 @@ function App() {
 	const [regModalIsOpen, setRegModalIsOpen] = useState(false);
 	const [findGameModalIsOpen, setfindGameModalIsOpen] = useState(false);
 	const [createGameModalIsOpen, setCreateGameModalIsOpen] = useState(false);
+	/*
 	const stompClient = new Client({
 		brokerURL: 'ws://localhost:8080/full-house-bucky-websocket'
 	});
+	*/
 
 	/**
 	* @function
@@ -71,7 +73,6 @@ function App() {
 	 * @function
 	 * @description Handles subscribing to a Euchre games websocket when joining a lobby
 	 * @param {int} gameID - The ID of the game to join
-	 */
 	const handleSubscribeLobby = (gameID) => {
 		stompClient.subscribe('/topic/games/euchre/' + gameID, (message) => {
 			handleGameStatus(JSON.parse(message.body).content);
@@ -81,6 +82,7 @@ function App() {
 	function handleGameStatus(message){
 		console.log(message)
 	}
+	*/
 
 	/**
 	* @function
