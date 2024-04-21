@@ -42,12 +42,20 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 			readyToStart: checked,
 			playerIndex: playerIndex + 1, // Assuming player indices start from 1
 		};
-
-		stompClient.send(
-			'/app/games/euchre/vote-start',
-			{},
-			JSON.stringify(payload)
-		);
+		if (checked) {
+			stompClient.send(
+				'/app/games/euchre/vote-start',
+				{},
+				JSON.stringify(payload)
+			);
+		}
+		else {
+			stompClient.send(
+				'/app/games/euchre/vote-not-start',
+				{},
+				JSON.stringify(payload)
+			);
+		}
 	};
 	*/
 
