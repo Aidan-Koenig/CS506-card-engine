@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react';
 import closeModalBtn from '../../assets/close.svg';
 import notifSVG from '../../assets/notif-icon.svg';
-// import { Client } from '@stomp/stompjs'; TODO: Uncomment when this is being implemented for websockets
+import { Client } from '@stomp/stompjs'; //TODO: Uncomment when this is being implemented for websockets
 import './LobbyScreen.css';
 
 function LobbyScreen({ closeModal, selectedGameId }) {
 
 	/*
-	const stompClient = new Client({
-		brokerURL: 'ws://localhost:8080/full-house-bucky-websocket'
-	});
-
-	stompClient.activate();
-
-	/**
 	 * @function
 	 * @description Handles subscribing to a Euchre games websocket when joining a lobby
 	 * @param {int} gameID - The ID of the game to join
+	*/
 	const handleSubscribeLobby = (gameID) => {
 		stompClient.subscribe('/topic/games/euchre/' + gameID, (message) => {
-			handleGameStatus(JSON.parse(message.body).content); // parse the json content
+			console.log(JSON.parse(message.body).content); // parse the json content
 		});
 	}
+
+	/*
 
 	function handleGameStatus(message) {
         const { gameId, status, players } = message;
@@ -80,8 +76,22 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 		};
 	
 		fetchGameInfo();
+		const stompClient = new Client({
+			brokerURL: 'ws://localhost:8080/full-house-bucky-websocket',
+			debug: (str) => {
+				console.log(str);
+			},
+			reconnectDelay: 5000, // Automatically reconnect after 5 seconds if the connection is lost
+			heartbeatIncoming: 4000, // Expected heartbeat interval from the server (in milliseconds)
+			heartbeatOutgoing: 4000, // Outgoing heartbeat interval (in milliseconds)
+			onConnect: () => {
+				console.log('STOMP client connected');
+				handleSubscribeLobby(selectedGameId);
+			}
+		});
+		
+		stompClient.activate();
 		// TODO: need to subscribe to websocket here
-		// handleSubscribeLobby(selectedGameId);
 		// this returns a GameMessage that has the gameIdD, Status Enum, and the list of player objs
 		// Player obj = {Id, username, readyToStart, score, and Hand<Card>}
 		// setGameInfo to this GameMessage and from there parse the player names and ready statuses
