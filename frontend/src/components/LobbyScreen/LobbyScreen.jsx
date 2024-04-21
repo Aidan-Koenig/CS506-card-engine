@@ -62,6 +62,7 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 		// this returns a GameMessage that has the gameIdD, Status Enum, and the list of player objs
 		// Player obj = {Id, username, readyToStart, score, and Hand<Card>}
 		// setGameInfo to this GameMessage and from there parse the player names and ready statuses
+		// might not even need to do the fetch since you get the game lobby info from the websocket connection
 	}, [selectedGameId]);
 
 	// TODO: need another use effect for the websockets
