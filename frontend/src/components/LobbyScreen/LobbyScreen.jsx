@@ -34,6 +34,21 @@ function LobbyScreen({ closeModal, selectedGameId }) {
         setPlayerReadyStatus(readyStatusObj);
         setWebSocketMessage(message);
     }
+
+	const handleCheckboxChange = (playerIndex, checked) => {
+		const payload = {
+			gameId: selectedGameId,
+			userId: Current user's ID ,
+			readyToStart: checked,
+			playerIndex: playerIndex + 1, // Assuming player indices start from 1
+		};
+
+		stompClient.send(
+			'/app/games/euchre/vote-start',
+			{},
+			JSON.stringify(payload)
+		);
+	};
 	*/
 
 	const [gameInfo, setGameInfo] = useState(null);
@@ -112,7 +127,16 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 					<div key={name} style={{ marginLeft: '1rem' }}>
 						<span style={{ width: '45%', display: 'inline-block', fontSize: '32px', marginBottom: '1rem' }}>{name}</span>
 						<input style={{ width: '45%', display: 'inline-block' }} type="checkbox" />
-						{/* Need to update input to show based on the player ready status*/}
+						{/* Need to update input to show based on the player ready status
+							<input
+								style={{ width: '45%', display: 'inline-block' }}
+								type="checkbox"
+								checked={playerReadyStatus[index + 1]}
+								disabled={name !== current user's name}
+								onChange={(e) => handleCheckboxChange(index, e.target.checked)}
+							/>
+						
+						*/}
 					</div>
 				))}
 				<div className="notif-box" style={{display: 'flex', justifyContent: 'space-between', marginTop: '1rem'}}>
