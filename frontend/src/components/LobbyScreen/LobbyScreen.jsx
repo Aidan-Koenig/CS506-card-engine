@@ -10,7 +10,8 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 	const stompClient = new Client({
 		brokerURL: 'ws://localhost:8080/full-house-bucky-websocket'
 	});
-	*/
+
+	stompClient.activate();
 
 	/**
 	 * @function
@@ -18,16 +19,25 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 	 * @param {int} gameID - The ID of the game to join
 	const handleSubscribeLobby = (gameID) => {
 		stompClient.subscribe('/topic/games/euchre/' + gameID, (message) => {
-			handleGameStatus(JSON.parse(message.body).content);
+			handleGameStatus(JSON.parse(message.body).content); // parse the json content
 		});
 	}
 
-	function handleGameStatus(message){
-		console.log(message)
-	}
+	function handleGameStatus(message) {
+        const { gameId, status, players } = message;
+        const playerNamesArray = players.map(player => player.username);
+        const readyStatusObj = {};
+        players.forEach(player => {
+            readyStatusObj[player.id] = player.readyToStart;
+        });
+        setPlayerNames(playerNamesArray);
+        setPlayerReadyStatus(readyStatusObj);
+        setWebSocketMessage(message);
+    }
 	*/
 
 	const [gameInfo, setGameInfo] = useState(null);
+	// const [playerNames, setPlayerNames] = useState([]);
 	// const [playerReadyStatus, setPlayerReadyStatus] = useState({});
 	// const [webSocketMessage, setWebSocketMessage] = useState(null);
 
@@ -41,29 +51,32 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 			const data = await response.json();
 			setGameInfo(data);
 			console.log(data);
-			// TODO: need to subscribe to websocket here
 			} catch (error) {
 				console.error('Error fetching game info:', error);
 			}
 		};
 	
 		fetchGameInfo();
+		// TODO: need to subscribe to websocket here
+		// handleSubscribeLobby(selectedGameId);
+		// this returns a GameMessage that has the gameIdD, Status Enum, and the list of player objs
+		// Player obj = {Id, username, readyToStart, score, and Hand<Card>}
+		// setGameInfo to this GameMessage and from there parse the player names and ready statuses
 	}, [selectedGameId]);
 
-	// useEffect(() => {
-	// 	if (webSocketMessage) {
-	// 		setGameInfo(webSocketMessage);
-	// 		setPlayerNames([webSocketMessage.player1_name, webSocketMessage.player2_name, webSocketMessage.player3_name, webSocketMessage.player4_name].filter(Boolean));
-	// 		setPlayerReadyStatus({
-	// 			1: webSocketMessage.player1_ready,
-	// 			2: webSocketMessage.player2_ready,
-	// 			3: webSocketMessage.player3_ready,
-	// 			4: webSocketMessage.player4_ready,
-	// 		});
-	// 	}
-	// }, [webSocketMessage]);
-
 	// TODO: need another use effect for the websockets
+	// useEffect(() => {
+	//     if (webSocketMessage) {
+	//         const { gameId, status, players } = webSocketMessage;
+	//         const playerNamesArray = players.map(player => player.username);
+	//         const readyStatusObj = {};
+	//         players.forEach(player => {
+	//             readyStatusObj[player.id] = player.readyToStart;
+	//         });
+	//         setPlayerNames(playerNamesArray);
+	//         setPlayerReadyStatus(readyStatusObj);
+	//     }
+	// }, [webSocketMessage]);
 
 	// had to do this monstrosity to render only names that are in the game
 	const playerNames = (gameInfo?.player1_name?.trim() ||
@@ -98,6 +111,7 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 					<div key={name} style={{ marginLeft: '1rem' }}>
 						<span style={{ width: '45%', display: 'inline-block', fontSize: '32px', marginBottom: '1rem' }}>{name}</span>
 						<input style={{ width: '45%', display: 'inline-block' }} type="checkbox" />
+						{/* Need to update input to show based on the player ready status*/}
 					</div>
 				))}
 				<div className="notif-box" style={{display: 'flex', justifyContent: 'space-between', marginTop: '1rem'}}>
@@ -106,7 +120,9 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 						Your game will start filled with bots.
 					</div>
 					<button>Start game &gt;</button> 
-					{/* whenver all ready from websocket start game, voteToStart, voteNotToStartGame */}
+					{/* whenver all ready from websocket start game, voteToStart, voteNotToStartGame 
+						so whenever the game status changes from Lobby to Game, then start the game
+					*/}
 				</div>
 			</div>
 		</>
