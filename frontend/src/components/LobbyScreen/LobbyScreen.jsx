@@ -86,7 +86,7 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 			heartbeatOutgoing: 4000, // Outgoing heartbeat interval (in milliseconds)
 			onConnect: () => {
 				console.log('STOMP client connected');
-				handleSubscribeLobby(selectedGameId);
+				// handleSubscribeLobby(selectedGameId);
 			}
 		});
 		

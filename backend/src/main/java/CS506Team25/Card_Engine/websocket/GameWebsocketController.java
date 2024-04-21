@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@CrossOrigin
 public class GameWebsocketController {
 
     private static Logger logger = LoggerFactory.getLogger(GameWebsocketController.class);
