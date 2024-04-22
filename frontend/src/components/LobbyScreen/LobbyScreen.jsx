@@ -11,11 +11,6 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 	 * @description Handles subscribing to a Euchre games websocket when joining a lobby
 	 * @param {int} gameID - The ID of the game to join
 	*/
-	const handleSubscribeLobby = (gameID) => {
-		stompClient.subscribe('/topic/games/euchre/' + gameID, (message) => {
-			console.log(JSON.parse(message.body).content); // parse the json content
-		});
-	}
 
 	/*
 
@@ -86,7 +81,11 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 			heartbeatOutgoing: 4000, // Outgoing heartbeat interval (in milliseconds)
 			onConnect: () => {
 				console.log('STOMP client connected');
-				// handleSubscribeLobby(selectedGameId);
+				stompClient.subscribe(`/topic/games/euchre/${selectedGameId}`, (message) => {
+					console.log('Received message:', message.body);
+				}, (error) => {
+					console.error('Error subscribing to topic:', error);
+				});
 			}
 		});
 		
