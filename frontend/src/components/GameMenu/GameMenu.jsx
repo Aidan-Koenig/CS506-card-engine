@@ -7,7 +7,7 @@ import CreateGame from '../CreateGame/CreateGame';
 import LobbyScreen from '../LobbyScreen/LobbyScreen';
 import SelectSeat from '../SelectSeat/SelectSeat';
 
-function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, userID} ) {
+function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, openCreateGameModal, closeCreateGameModal, createGameModalIsOpen, showToast, userID, username} ) {
 
 	const [lobbyScreenModalIsOpen, setLobbyScreenModalIsOpen] = useState(false);
 	const [showSelectSeatModal, setShowSelectSeatModal] = useState(false);
@@ -114,7 +114,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							},
 						}}
 					>
-						{selectedGameId !== null && <LobbyScreen closeModal={closeLobbyScreenModal} selectedGameId={selectedGameId} />}
+						{selectedGameId !== null && <LobbyScreen closeModal={closeLobbyScreenModal} selectedGameId={selectedGameId} username={username} userID={userID}/>}
 					</Modal>
 					<Modal
 						isOpen={showSelectSeatModal}
