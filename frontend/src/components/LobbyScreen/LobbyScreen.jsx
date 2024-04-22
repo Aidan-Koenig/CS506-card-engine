@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
 import closeModalBtn from '../../assets/close.svg';
 import notifSVG from '../../assets/notif-icon.svg';
-import { Client } from '@stomp/stompjs'; //TODO: Uncomment when this is being implemented for websockets
+import { Client } from '@stomp/stompjs';
 import './LobbyScreen.css';
 
 function LobbyScreen({ closeModal, selectedGameId }) {
-
-	/*
-	 * @function
-	 * @description Handles subscribing to a Euchre games websocket when joining a lobby
-	 * @param {int} gameID - The ID of the game to join
-	*/
 
 	/*
 
@@ -51,9 +45,9 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 	*/
 
 	const [gameInfo, setGameInfo] = useState(null);
-	// const [playerNames, setPlayerNames] = useState([]);
-	// const [playerReadyStatus, setPlayerReadyStatus] = useState({});
-	// const [webSocketMessage, setWebSocketMessage] = useState(null);
+	const [gameStatus, setGameStatus] = useState('');
+	const [players, setPlayers] = useState([]);
+	const [webSocketMessage, setWebSocketMessage] = useState(null); //gets set initally when subscribing to the game endpoint
 
 	useEffect(() => {
 		const fetchGameInfo = async () => {
@@ -64,7 +58,7 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 			}
 			const data = await response.json();
 			setGameInfo(data);
-			console.log(data);
+			// console.log(data); debug only
 			} catch (error) {
 				console.error('Error fetching game info:', error);
 			}
@@ -73,16 +67,20 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 		fetchGameInfo();
 		const stompClient = new Client({
 			brokerURL: 'ws://localhost:8080/full-house-bucky-websocket',
-			debug: (str) => {
-				console.log(str);
-			},
+			// debug: (str) => {
+			// 	console.log(str);
+			// },
 			reconnectDelay: 5000, // Automatically reconnect after 5 seconds if the connection is lost
 			heartbeatIncoming: 4000, // Expected heartbeat interval from the server (in milliseconds)
 			heartbeatOutgoing: 4000, // Outgoing heartbeat interval (in milliseconds)
 			onConnect: () => {
 				console.log('STOMP client connected');
 				stompClient.subscribe(`/topic/games/euchre/${selectedGameId}`, (message) => {
-					console.log('Received message:', message.body);
+					setWebSocketMessage(JSON.parse(message.body)); //id, status, Players[0:playerID, username, readytToStart, score, hand]
+					const data = JSON.parse(message.body);
+					setGameStatus(data.status);
+					setPlayers(data.players);
+					console.log(data); // logging websocketMessage
 				}, (error) => {
 					console.error('Error subscribing to topic:', error);
 				});
@@ -91,8 +89,6 @@ function LobbyScreen({ closeModal, selectedGameId }) {
 		
 		stompClient.activate();
 		// TODO: need to subscribe to websocket here
-		// this returns a GameMessage that has the gameIdD, Status Enum, and the list of player objs
-		// Player obj = {Id, username, readyToStart, score, and Hand<Card>}
 		// setGameInfo to this GameMessage and from there parse the player names and ready statuses
 		// might not even need to do the fetch since you get the game lobby info from the websocket connection
 	}, [selectedGameId]);
