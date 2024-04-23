@@ -14,14 +14,15 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 	useEffect(() => {
 		const stompClient = new Client({
 			brokerURL: 'ws://localhost:8080/full-house-bucky-websocket',
-			// debug: (str) => {
-			// 	console.log(str);
-			// },
+			debug: (str) => {
+				console.log(str);
+			},
 			reconnectDelay: 5000, // Automatically reconnect after 5 seconds if the connection is lost
 			heartbeatIncoming: 4000, // Expected heartbeat interval from the server (in milliseconds)
 			heartbeatOutgoing: 4000, // Outgoing heartbeat interval (in milliseconds)
 			onConnect: () => {
 				console.log('STOMP client connected');
+				stompClientRef.current = stompClient;
 				stompClient.subscribe(`/topic/games/euchre/${selectedGameId}`, (message) => {
 					setWebSocketMessage(JSON.parse(message.body)); //id, status, Players[0:playerID, username, readyToStart, score, hand]
 					const data = JSON.parse(message.body);
@@ -43,38 +44,20 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 	const handleCheckboxChange = (playerIndex, checked) => {
 		const stompClient = stompClientRef.current; // Access the stompClient from the ref
 		if (stompClient) {
-			const payload = {
-				userId: userID,
-			};
 			if (checked) {
-				stompClient.send(
-					`/app/games/euchre/${selectedGameId}/vote-start`,
-					{},
-					JSON.stringify(payload)
-				);
+				console.log("SENDING MESSAGE");
+				stompClient.publish({
+					destination: `/app/games/euchre/${selectedGameId}/vote-start`,
+					body: userID,
+				});
 			} else {
-				stompClient.send(
-					`/app/games/euchre/${selectedGameId}/vote-not-start`,
-					{},
-					JSON.stringify(payload)
-				);
+				stompClient.publish({
+					destination: `/app/games/euchre/${selectedGameId}/vote-not-start`,
+					body: userID,
+				});
 			}
 		}
 	};
-
-	// TODO: need another use effect for the websockets, maybe not, got live updates
-	// useEffect(() => {
-	//     if (webSocketMessage) {
-	//         const { gameId, status, players } = webSocketMessage;
-	//         const playerNamesArray = players.map(player => player.username);
-	//         const readyStatusObj = {};
-	//         players.forEach(player => {
-	//             readyStatusObj[player.id] = player.readyToStart;
-	//         });
-	//         setPlayerNames(playerNamesArray);
-	//         setPlayerReadyStatus(readyStatusObj);
-	//     }
-	// }, [webSocketMessage]);
 
 	// showing player names from websockets, had to filter for null players
 	const playerNames = players.filter(player => player !== null).map(player => player.username);
@@ -93,14 +76,20 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 				{playerNames.map((name, index) => (
 					<div key={name} style={{ marginLeft: '1rem' }}>
 						<span style={{ width: '45%', display: 'inline-block', fontSize: '32px', marginBottom: '1rem' }}>{name}</span>
+						{name === username ? (
+							<input
+								style={{ width: '45%', display: 'inline-block' }}
+								type="checkbox"
+								onChange={(e) => handleCheckboxChange(index, e.target.checked)}
+							/>
+						) : (
 							<input
 								style={{ width: '45%', display: 'inline-block' }}
 								type="checkbox"
 								checked={players[index]?.readyToStart || false}
-								disabled={name !== username}
-								onChange={(e) => handleCheckboxChange(index, e.target.checked)}
-							/> 
-							{/* TODO: need to allow user to check if they are the user, rn can't because of checked prop */}
+								disabled
+							/>
+						)}
 					</div>
 				))}
 				<div className="notif-box" style={{display: 'flex', justifyContent: 'space-between', marginTop: '1rem'}}>
