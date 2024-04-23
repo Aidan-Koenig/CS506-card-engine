@@ -41,7 +41,8 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 		// might not even need to do the fetch since you get the game lobby info from the websocket connection
 	}, [selectedGameId]);
 
-	const handleCheckboxChange = (playerIndex, checked) => {
+	const handleCheckboxChange = (index, checked) => {
+
 		const stompClient = stompClientRef.current; // Access the stompClient from the ref
 		if (stompClient) {
 			if (checked) {
@@ -52,7 +53,7 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 				});
 			} else {
 				stompClient.publish({
-					destination: `/app/games/euchre/${selectedGameId}/vote-not-start`,
+					destination: `/app/games/euchre/${selectedGameId}/vote-not-to-start`,
 					body: userID,
 				});
 			}
