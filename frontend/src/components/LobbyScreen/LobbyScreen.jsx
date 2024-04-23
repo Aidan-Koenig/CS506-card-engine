@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import closeModalBtn from '../../assets/close.svg';
 import notifSVG from '../../assets/notif-icon.svg';
 import { Client } from '@stomp/stompjs';
@@ -9,6 +9,7 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 	const [gameStatus, setGameStatus] = useState('');
 	const [players, setPlayers] = useState([]);
 	const [webSocketMessage, setWebSocketMessage] = useState(null); //gets set initally when subscribing to the game endpoint
+	const stompClientRef = useRef(null);
 
 	useEffect(() => {
 		const stompClient = new Client({
@@ -40,22 +41,24 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 	}, [selectedGameId]);
 
 	const handleCheckboxChange = (playerIndex, checked) => {
-		const payload = {
-			userId: userID ,
-		};
-		if (checked) {
-			stompClient.send(
-				`/app/games/euchre/${selectedGameId}/vote-start`,
-				{},
-				JSON.stringify(payload)
-			);
-		}
-		else {
-			stompClient.send(
-				`/app/games/euchre/${selectedGameId}/vote-not-start`,
-				{},
-				JSON.stringify(payload)
-			);
+		const stompClient = stompClientRef.current; // Access the stompClient from the ref
+		if (stompClient) {
+			const payload = {
+				userId: userID,
+			};
+			if (checked) {
+				stompClient.send(
+					`/app/games/euchre/${selectedGameId}/vote-start`,
+					{},
+					JSON.stringify(payload)
+				);
+			} else {
+				stompClient.send(
+					`/app/games/euchre/${selectedGameId}/vote-not-start`,
+					{},
+					JSON.stringify(payload)
+				);
+			}
 		}
 	};
 
