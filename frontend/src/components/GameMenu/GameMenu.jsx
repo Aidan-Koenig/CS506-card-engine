@@ -68,7 +68,9 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 	return(
 			currentlyPlaying ? 
 				<>
-				{/* put game board component here, pass in gameWebsocketMessage into here or the client to get new messages */}
+				{/* put game board component here, pass in gameWebsocketMessage into here or the client to get new messages 
+					will need to pass userID and selectedGameID in here to send move msgs to websocket
+				*/}
 				<h1>Testing...</h1>
 				</> 
 				: 
