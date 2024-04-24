@@ -6,9 +6,9 @@ import './LobbyScreen.css';
 
 function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 
-	const [gameStatus, setGameStatus] = useState('');
+	const [gameStatus, setGameStatus] = useState(''); //will need to use this to know when game starts, will be GAME value when game is playing
 	const [players, setPlayers] = useState([]);
-	const [webSocketMessage, setWebSocketMessage] = useState(null); //gets set initally when subscribing to the game endpoint
+	const [webSocketMessage, setWebSocketMessage] = useState(null); //gets set initally when subscribing to the game endpoint, send this up to parent for game screen for live updates
 	const stompClientRef = useRef(null);
 
 	useEffect(() => {
@@ -36,9 +36,6 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 		});
 		
 		stompClient.activate();
-		// TODO: need to subscribe to websocket here
-		// setGameInfo to this GameMessage and from there parse the player names and ready statuses
-		// might not even need to do the fetch since you get the game lobby info from the websocket connection
 	}, [selectedGameId]);
 
 	const handleCheckboxChange = (index, checked) => {
@@ -99,8 +96,8 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID }) {
 						Your game will start filled with bots.
 					</div>
 					<button>Start game &gt;</button> 
-					{/* whenver all ready from websocket start game, voteToStart, voteNotToStartGame 
-						so whenever the game status changes from Lobby to Game, then start the game
+					{/* TODO: whenever all ready from websocket start game, this will come from gameStatus var from websockets
+						should be closing this modal and changing screens from GameMenu to the new GameBoard screen. 
 					*/}
 				</div>
 			</div>
