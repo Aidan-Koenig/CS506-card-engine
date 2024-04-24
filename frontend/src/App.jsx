@@ -63,6 +63,26 @@ function App() {
 		setCreateGameModalIsOpen(false);
 	};
 
+	const backToLogin = (value) => {
+		setUser(null);
+		setLoggedIn(false);
+	}
+
+	/**
+	 * @function
+	 * @description Handles subscribing to a Euchre games websocket when joining a lobby
+	 * @param {int} gameID - The ID of the game to join
+	const handleSubscribeLobby = (gameID) => {
+		stompClient.subscribe('/topic/games/euchre/' + gameID, (message) => {
+			handleGameStatus(JSON.parse(message.body).content);
+		});
+	}
+
+	function handleGameStatus(message){
+		console.log(message)
+	}
+	*/
+
 	/**
 	* @function
 	* @description Handles the user login process. It stores the user data in the user state variable and sets loggedIn to true to communicate that the user is logged in.
@@ -84,6 +104,14 @@ function App() {
 			.catch(error => {
 				console.error('Error:', error);
 		});
+
+		//setUser(testData);
+		/* setUser({
+			user_id: "user_id", 
+			user_name: username,
+			date_joined: "today"
+		  });
+		setLoggedIn(true); */
 	};
 
 	/**
@@ -162,6 +190,7 @@ function App() {
 					showToast={showToast}
 					userID={user.user_id}
 					username={user.user_name}
+					reloadLogin={backToLogin}
 				/>
 			) 
 			: 
