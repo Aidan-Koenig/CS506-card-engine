@@ -1,0 +1,27 @@
+  .Hand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .hand-name  {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  .hand-cards {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .hand-card {
+    width: 60px;  
+    height: auto; 
+    margin: 0 5px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .hand-card:hover {
+    transform: translateY(-5px);
+  }
