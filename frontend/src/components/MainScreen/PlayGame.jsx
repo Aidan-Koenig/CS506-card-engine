@@ -31,7 +31,7 @@ function PlayGame({ closeModal, openPlayGameModal }) {
               <div className="second2">
                   <Table trump="Clubs"  cards={["ace_clubs","nine_diamonds","queen_hearts","ten_spades"]}  />
               </div>
-              <div className="third"><Player playerName="rigth" cards={["*","*","*","*"]} position="rigth" /></div>
+              <div className="third"><Player playerName="right" cards={["*","*","*","*"]} position="right" /></div>
           </div>
           <div className="container">
               <div className="first"> </div>
