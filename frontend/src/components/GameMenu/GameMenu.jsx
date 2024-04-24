@@ -30,6 +30,10 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 		setShowSelectSeatModal(true);
 	};
 
+	const closeSelectSeatModal = () => {
+		setShowSelectSeatModal(false);
+	};
+
 	// opens lobby screen modal popup
 	const openLobbyScreenModal = () => {
 		setLobbyScreenModalIsOpen(true);
@@ -54,10 +58,6 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 		setSettingScreenModalIsOpen(true);
 	};
 
-	const closeSelectSeatModal = () => {
-		setShowSelectSeatModal(false);
-	};
-
 	// update gameWebsocketMessage whenever there's a new one
 	const handleWebSocketMessageUpdate = (message) => {
 		setGameWebsocketMessage(message);
@@ -69,7 +69,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 			currentlyPlaying ? 
 				<>
 				{/* put game board component here, pass in gameWebsocketMessage into here or the client to get new messages 
-					will need to pass userID and selectedGameID in here to send move msgs to websocket
+					will need to pass userID, selectedGameID, and gameWebsocketMessage in here to send move msgs to websocket
 				*/}
 				<h1>Testing...</h1>
 				</> 
