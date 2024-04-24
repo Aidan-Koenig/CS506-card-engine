@@ -27,15 +27,15 @@ function PlayGame({ closeModal, openPlayGameModal }) {
               <div className="third"> </div>
           </div>
           <div className="container2">
-              <div className="first"><Player playerName="left" cards={["*","*","*","*"]} position="left"/></div>
+              <div className="first"><Player playerName="Left" cards={["*","*","*","*"]} position="left"/></div>
               <div className="second2">
                   <Table trump="Clubs"  cards={["ace_clubs","nine_diamonds","queen_hearts","ten_spades"]}  />
               </div>
-              <div className="third"><Player playerName="right" cards={["*","*","*","*"]} position="right" /></div>
+              <div className="third"><Player playerName="Right" cards={["*","*","*","*"]} position="right" /></div>
           </div>
           <div className="container">
               <div className="first"> </div>
-              <div className="second"><Player playerName="you" cards={["ace_clubs","nine_diamonds","queen_hearts","ten_spades"]}  position="bottom"/></div>
+              <div className="second"><Player playerName="You" cards={["ace_clubs","nine_diamonds","queen_hearts","ten_spades"]}  position="bottom"/></div>
               <div className="third">
                   <Scoreboard scores={scores} />
               </div>

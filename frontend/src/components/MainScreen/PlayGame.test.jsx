@@ -7,12 +7,16 @@ test('renders learn react link', () => {
   expect(linkElement).toBeInTheDocument();
 });*/
 
+
 import { render, screen } from '@testing-library/react';
 import PlayGame from './PlayGame';
 
-test('renders player CPU James', () => {
+test('renders Positions', () => {
   render(<PlayGame />);
-  const playerNameElement = screen.getByText(/CPU James/i);  // Looking for "CPU James"
+  const playerNameElement = screen.getByText(/Top/i);
+  const playerNameElement = screen.getByText(/Right/i);
+  const playerNameElement = screen.getByText(/You/i);
+  const playerNameElement = screen.getByText(/Left/i);// Looking for "CPU James"
   expect(playerNameElement).toBeInTheDocument();
 });
 
