@@ -41,6 +41,10 @@ function LobbyScreen({ closeModal, selectedGameId, username, userID, setCurrentl
 
 	// when game starts, set the parent state var to true to transition screens and close this modal
 	if (gameStatus == "Game") {
+		// if we the closed modal doesn't pass the updates along to parent/siblings, then do the following
+		// const stompClient = stompClientRef.current;
+		// stompClient.deactivate();
+		// this disconnects the client from the websocket, then just need to send the ref up and over to sibling to reconnect in new component
 		setCurrentlyPlaying(true);
 		closeModal();
 	}
