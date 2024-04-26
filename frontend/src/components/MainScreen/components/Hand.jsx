@@ -28,7 +28,6 @@ import ten_diamonds from '../../../assets/cards/ten_diamonds.svg';
 import ten_hearts from '../../../assets/cards/ten_hearts.svg';
 import ten_spades from '../../../assets/cards/ten_spades.svg';
 
-
 // Import card backside image
 import card_backside from '../../../assets/cards/card_backside.svg';
 
@@ -44,7 +43,7 @@ function Hand({ playerName, cards = [], position }) {
   };
 
   const isCurrentUser = position === 'bottom'; 
-  const maxCardsToShow = 4;
+  const maxCardsToShow = 5;
 
   return (
     <div className={`Hand ${position}`}>
