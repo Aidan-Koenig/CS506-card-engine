@@ -7,7 +7,6 @@ test('renders learn react link', () => {
   expect(linkElement).toBeInTheDocument();
 });*/
 
-
 /*import { render, screen } from '@testing-library/react';
 import PlayGame from './PlayGame';
 
@@ -35,4 +34,5 @@ test('renders Positions', () => {
   expect(bottomPlayerElement).toBeInTheDocument();
   expect(leftPlayerElement).toBeInTheDocument();
 });
+
 
