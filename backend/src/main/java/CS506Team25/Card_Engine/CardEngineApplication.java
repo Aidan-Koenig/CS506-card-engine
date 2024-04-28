@@ -26,7 +26,7 @@ public class CardEngineApplication {
 		SpringApplication.run(CardEngineApplication.class, args);
 	}
 	
-	@Bean
+	/* @Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
@@ -36,6 +36,6 @@ public class CardEngineApplication {
 					.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
 			}
 		};
-	}
+	} */
 
 }

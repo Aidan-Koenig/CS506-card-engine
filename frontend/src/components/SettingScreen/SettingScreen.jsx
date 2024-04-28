@@ -10,7 +10,7 @@ function SettingScreen({ closeModal, userid, username }) {
     const [presentUsername, setPresentUsername] = useState(username);
 
     const deleteAccount = () => {
-            fetch(`http://localhost:8080/player/deleteplayer/${userid}`, {method: 'DELETE',})
+            fetch(`http://localhost:8080/player/${userid}`, {method: 'DELETE',})
                 .then(response => response.text())
                     .then(data => {
                         console.log(data); // Used in development to debug
@@ -20,7 +20,7 @@ function SettingScreen({ closeModal, userid, username }) {
                             closeModal('*Cleared*');
                         } 
                         else {
-                            showToast('Delete Account is failed.', 'error');
+                            alert('Delete Account is failed');
                         }
                     })
                 .catch(error => {
@@ -33,8 +33,24 @@ function SettingScreen({ closeModal, userid, username }) {
         }
     const resetStats = () => {
             //console.log("Reset Stats is called")
-            alert("Reset Stats is sent to backend. Stats have been reset. Game stats should be cleared in History screen")
-        }
+            //alert("Reset Stats is sent to backend. Stats have been reset. Game stats should be cleared in History screen")
+            fetch(`http://localhost:8080/player/${userid}/stats`, {method: 'DELETE',})
+            .then(response => response.text())
+                .then(data => {
+                    console.log(data); // Used in development to debug
+                    if (data == "true") {
+                        alert("Stats have been reset");
+                        //setPresentUsername('*Cleared*');
+                        //closeModal('*Cleared*');
+                    } 
+                    else {
+                        alert('Stats reset failed');
+                    }
+                })
+            .catch(error => {
+                console.error('Error:', error);
+        });
+    }
     
     const changeUser = () => {
             setChangeNameScreenModalIsOpen(true);

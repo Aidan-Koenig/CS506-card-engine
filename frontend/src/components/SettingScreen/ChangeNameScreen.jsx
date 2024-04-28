@@ -20,7 +20,7 @@ function ChangeNameScreen({closeModal, userID, currentUsername}){
             alert("new username cannot be blank or empty!");
         }
         else{
-            fetch(`http://localhost:8080/player/${userID}/change-username?newUserName=${username}`, {method: 'POST'})
+            fetch(`http://localhost:8080/player/${userID}?newUserName=${username}`, {method: 'PUT'})
             .then(response => response.text())
                 .then(data => {
                     if (data == 'successful') {
