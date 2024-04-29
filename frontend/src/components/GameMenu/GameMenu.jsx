@@ -47,7 +47,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 	// closes setting screen modal popup
 	const closeSettingScreenModal = (value) => {
 		setPresentUsername(value);
-		username = value;
+		username = value; //for validation checks that username has value stored and is actually updated
 		setSettingScreenModalIsOpen(false);
 		if(value == '*Cleared*')
 		{
@@ -55,6 +55,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 		}
 	};
 
+	// opens setting screen modal popup
 	const openSettingScreenModal = () => {
 		setSettingScreenModalIsOpen(true);
 	};
@@ -190,6 +191,7 @@ function GameMenu( {openfindGameModal, closefindGameModal, findGameModalIsOpen, 
 							}}
 							shouldCloseOnOverlayClick={false}
 						>
+							{/*Modal is consistent for username to be tracked to be the present one */}
 							<SettingScreen closeModal={closeSettingScreenModal} userid={userID} username={presentUsername} />
 						</Modal>
 					</div>

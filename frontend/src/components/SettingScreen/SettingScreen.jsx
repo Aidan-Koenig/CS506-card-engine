@@ -25,23 +25,18 @@ function SettingScreen({ closeModal, userid, username }) {
                     })
                 .catch(error => {
                     console.error('Error:', error);
-            });
-            /* alert("Account has been deleted. This will return to Login screen.");
-            setPresentUsername('*Cleared*');
-            closeModal('*Cleared*');   */         
+            });    
             
         }
     const resetStats = () => {
             //console.log("Reset Stats is called")
-            //alert("Reset Stats is sent to backend. Stats have been reset. Game stats should be cleared in History screen")
             fetch(`http://localhost:8080/player/${userid}/stats`, {method: 'DELETE',})
             .then(response => response.text())
                 .then(data => {
                     console.log(data); // Used in development to debug
                     if (data == "true") {
                         alert("Stats have been reset");
-                        //setPresentUsername('*Cleared*');
-                        //closeModal('*Cleared*');
+                       
                     } 
                     else {
                         alert('Stats reset failed');
