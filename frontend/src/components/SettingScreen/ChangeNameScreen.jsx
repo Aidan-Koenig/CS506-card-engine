@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
 import closeModalBtn from '../../assets/close.svg';
 import GameScreen from '../GameScreen/GameScreen';

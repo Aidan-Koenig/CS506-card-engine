@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-modal';
 import closeModalBtn from '../../assets/close.svg';
 import ChangeNameScreen from './ChangeNameScreen';
 
 
-function SettingScreen({ closeModal, userid, username }) {
+function SettingScreen({ closeModal, userid, username, showToast }) {
 
     const [changeNameScreenModalIsOpen, setChangeNameScreenModalIsOpen] = useState(false);
     const [presentUsername, setPresentUsername] = useState(username);
