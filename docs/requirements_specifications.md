@@ -8,13 +8,13 @@ The card game engine is a piece of software designed to cater to the players, of
 
 ### Customer
 
-The customer for this software in general is anyone who wants to play card games like euchre socially.
+The customer for this software in general is anyone who wants to play card games like euchre socially. And this game is also applied to users who have no prior knoledge or experiences of playing euchre game.
 
 
 ### Tech Stack
 
 * Frontend: React
-* Backend: Java
+* Backend: Java, Spring Boot.
 * Database: MySQL
 
 <!--A brief description of the customer for this software, both in general (the population who might eventually use such a system) and specifically for this document (the customer(s) who informed this document). Every project will have a customer from the CS506 instructional staff. Requirements should not be derived simply from discussion among team members. Ideally your customer should not only talk to you about requirements but also be excited later in the semester to use the system.-->
@@ -38,6 +38,7 @@ The customer for this software in general is anyone who wants to play card games
 
 Our main user stories are as follows:
 * As a player I want to be able to play Euchre
+* As a player I want to be able to learn the rules of playing Euchre by visiting this program.
 * As a player I want to be able to access and download my lifetime stats
 * As a player I want to be able to change my name, delete my stats, and delete my account
 
@@ -54,6 +55,7 @@ As for acceptance critera, they are as follows:
 * A user must be able to create or find a game of euchre and play it to completion
 * A user must be able to access their statistics and be able to download a file of their lifetime statistics
 * A user must be able to edit characteristics of their account such as their name and but able to delete their stored statistics and/or their account entirely
+* A user must be able to finish the game in a sigle attempt, and if the user logout the game during the game, the user must be redirected to restart the game.
 
 ### User Interface Requirements
 
@@ -133,7 +135,7 @@ classDiagram
         + void setCurrentRound(Round round)
         + List -Round- getRounds()
         + void setRounds(List -Round- rounds)
-
+    
     }
     class Card {
         - Suit suit
